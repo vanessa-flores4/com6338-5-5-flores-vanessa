@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      :root {
+        --primary-color: hsl(270, 54%, 15%);
+        --text: #eee;
+        --button-bg: rebeccapurple;
+        --button-border: hsl(270, 54%, 50%);
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        max-width: 800px;
+        margin: auto;
+        background-color: var(--primary-color);
+        color: var(--text);
+        font-size: 1.2rem;
+        line-height: 1.5;
+      }
+      h1, h2, h3 {
+        text-align: center;
+        margin: 48px 0;
+        letter-spacing: 1.5px;
+      }
+      p {
+        margin: 48px 0;
+      }
+      button {
+        padding: 12px 24px;
+        background-color: rebeccapurple;
+        border: solid 2px var(--button-border);
+        border-radius: 4px;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 200ms;
+        display: block;
+      }
+      button:hover {
+        background-color: var(--button-border);
+      }
+      a {
+        color: hsl(15, 72%, 75%);
+      }
+      a:visited {
+        color: hsl(15, 72%, 70%);
+      }
+      span.mono {
+        font-family: 'Courier New', Courier, monospace;
+      }
+      .todo {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: auto;
+      }
+      .todo #todo-list,
+      .todo-example ul {
+        max-width: 325px;
+        align-self: flex-start;
+        margin: auto;
+        font-size: 1.5rem;
+        padding-left: 0;
+      }
+      .todo #todo-list > li,
+      .todo-example ul > li {
+        cursor: pointer;
+      }
+      .todo #todo-list > li button,
+      .todo-example ul > li button {
+        border: none;
+        background-color: initial;
+        text-align: left;
+        padding: 0;
+      }
+      .todo > form,
+      .todo-example > form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .todo > form > input,
+      .todo-example > form > input {
+        font-size: 1.2em;
+        padding: 0 12px;
+      }
+      .todo-example {
+        border: 2px solid #eee;
+        position: relative;
+        border-radius: 0 6px 6px 6px;
+        padding: 24px 0;
+        margin: 96px 0;
+      }
+      .todo-example > .tag {
+        position: absolute;
+        left: -2px;
+        top: -30px;
+        color:hsl(270, 54%, 15%);
+        background-color: #eee;
+        padding: 0 24px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+    </style>
+</head>
+
+<body>
+  <h1>Todo App</h1>
+  <div class="todo">
+    <form id="add-todo">
+      <input type="text" placeholder="What do you have to do?" />
+      <button>Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </div>
+  <h2>Instructions</h2>
+  <p>For this assignment, you will need to create a todo list application using the HTML above.</p>
+  <h3>Setup</h3>
+  <p>The markup for the todo app is as follows:</p>
+  <pre><code class="language-markup">&lt;div class="todo">
+  &lt;form id="add-todo">
+    &lt;input type="text" placeholder="What do you have to do?" />
+    &lt;button>Add&lt;/button>
+  &lt;/form>
+  &lt;ul id="todo-list">&lt;/ul>
+&lt;/div></code></pre>
+  <p><u>Do NOT modify this <span class="mono">index.html</span> file.</u> The included automated tests depend on this markup to run. All markup needed to complete this assignment is already included. There is also no need to write any CSS to complete this assignment; all required CSS for the assignment is already included.</p>
+  <h3 id="app-behavior">Application Behavior</h3>
+  <p>When the page loads, the list and input field should be empty. The app should appear as it does in <a href="#fig-1">figure 1</a> below.</p>
+  <div class="todo-example">
+    <span class="tag" id="fig-1">Figure 1</span>
+    <div class="todo">
+      <form>
+        <input type="text" placeholder="What do you have to do?" />
+        <button type="button">Add</button>
+      </form>
+      <ul></ul>
+    </div>
+  </div>
+  <p>After typing a todo item into the input field and either pressing the "enter" key OR clicking the "Add" button, the typed item should appear below the form inside of the <span class="mono">ul#todo-list</span> element. Because the markup uses a <span class="mono">form</span> to capture new list items, this functionality must be attached to a <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onsubmit">form submit event</a> using JavaScript. See <a href="#fig-2">figure 2</a> and <a href="#fig-3">figure 3</a> for examples of before and after adding a new todo item.</p>
+  <div class="todo-example">
+    <span class="tag" id="fig-2">Figure 2: Typing into the field</span>
+    <div class="todo">
+      <form>
+        <input type="text" placeholder="What do you have to do?" value="learn JavaScript" />
+        <button type="button">Add</button>
+      </form>
+      <ul></ul>
+    </div>
+  </div>
+  <div class="todo-example">
+    <span class="tag" id="fig-3">Figure 3: After submitting the form</span>
+    <div class="todo">
+      <form>
+        <input type="text" placeholder="What do you have to do?" />
+        <button type="button">Add</button>
+      </form>
+      <ul>
+        <li><button>learn JavaScript</button></li>
+      </ul>
+    </div>
+  </div>
+  <pre><code class="language-markup">&lt;div class="todo">
+  &lt;form id="add-todo">
+    &lt;input type="text" placeholder="What do you have to do?" />
+    &lt;button>Add&lt;/button>
+  &lt;/form>
+  &lt;ul id="todo-list">
+    &lt;li>
+      &lt;button>
+        learn JavaScript
+      &lt;/button>
+    &lt;/li>
+  &lt;/ul>
+&lt;/div></code></pre>
+  <p>When adding the todo item to the list, that item <u>MUST be a <span class="mono">button</span> element nested within a <span class="mono">li</span> element</u> as depicted in the above markup. The reason for nesting the <span class="mono">button</span> within an <span class="mono">li</span> is that it allows the form to be completely keyboard accessible.</p>
+  <p>After adding an item, that item may be clicked in the todo list to mark it as done. The item should be marked done by striking through the words using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration#demonstration_of_text-decoration_values"><span class="mono">text-decoration</span> CSS property</a>. See <a href="#fig-4">figure 4</a> for an example.</p>
+  <div class="todo-example">
+    <span class="tag" id="fig-4">Figure 4: Marking an item as done</span>
+    <div class="todo">
+      <form>
+        <input type="text" placeholder="What do you have to do?" />
+        <button type="button">Add</button>
+      </form>
+      <ul>
+        <li><button style="text-decoration: line-through">learn JavaScript</button></li>
+      </ul>
+    </div>
+  </div>
+  <pre><code class="language-markup">&lt;div class="todo">
+  &lt;form id="add-todo">
+    &lt;input type="text" placeholder="What do you have to do?" />
+    &lt;button>Add&lt;/button>
+  &lt;/form>
+  &lt;ul id="todo-list">
+    &lt;li>
+      &lt;button style="text-decoration: line-through">
+        learn JavaScript
+      &lt;/button>
+    &lt;/li>
+  &lt;/ul>
+&lt;/div></code></pre>
+  <p>Additionally, clicking an item that's been marked as done should remove the item from the list (<a href="#fig-5">figure 5</a>).</p>
+  <div class="todo-example">
+    <span class="tag" id="fig-5">Figure 5: After a struck-through item is clicked</span>
+    <div class="todo">
+      <form>
+        <input type="text" placeholder="What do you have to do?" />
+        <button type="button">Add</button>
+      </form>
+      <ul></ul>
+    </div>
+  </div>
+  <pre><code class="language-markup">&lt;div class="todo">
+  &lt;form id="add-todo">
+    &lt;input type="text" placeholder="What do you have to do?" />
+    &lt;button>Add&lt;/button>
+  &lt;/form>
+  &lt;ul id="todo-list">&lt;/ul>
+&lt;/div></code></pre>
+
+  <h2>Tests</h2>
+  <p>Automated tests are included with this assignment. Click the "run tests" button in the bottom right of the screen to run the test suite. To close the tests, click "close tests". To receive full credit, all automated tests must pass.</p>
+
+  <h2>Requirements for full credit</h2>
+  <p>
+    To receive full credit for this assignment, your program MUST:
+    <ul>
+      <li>Operate in the same manner as described above in the <a href="#app-behavior">application behavior</a> section.</li>
+      <li>Pass all automated tests.</li>
+      <li>Be deployed to GitHub Pages.</li>
+    </ul>
+  </p>
+
+  <h2>Submission</h2>
+  <p>
+    When submitting this assignment, please include <u>BOTH</u>:
+    <ol>
+      <li>A link to the assignment's GitHub repository.</li>
+      <li>A link to the assignment's deployed, live site on GitHub Pages.</li>
+    </ol>
+  </p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"
+    integrity="sha512-/Swpp6aCQ0smuZ+zpklJqMClcUlvxhpLf9aAcM7JjJrj2waCU4dikm3biOtMVAflOOeniW9qzaNXNrbOAOWFCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="index.js"></script>
+  <script src="tests.js"></script>
+</body>
+
+</html>
